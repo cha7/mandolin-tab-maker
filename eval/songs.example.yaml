@@ -1,0 +1,25 @@
+# Copy to eval/songs.yaml and fill in. Run: npm run eval
+#
+# reference: the melody as ABC (.abc), MusicXML (.musicxml/.mxl) or MIDI (.mid), relative
+# to this file. Traditional fiddle tunes are ideal: ABC transcriptions are easy to find
+# and the tunes are public domain. Put them in eval/refs/ (gitignored).
+# options: any pipeline.Options field (stem, key_change, bpm, beats_per_bar, subdivision).
+
+songs:
+  - name: Outer Wilds theme (no reference; listen to preview.wav)
+    source: https://www.youtube.com/watch?v=Xpkc-NU1KA0
+
+  # Solo mandolin or fiddle: should score well. If these fail, stop.
+  - name: fiddle tune, solo
+    source: https://www.youtube.com/watch?v=REPLACE_ME
+    reference: refs/fiddle-tune.abc
+
+  # Melody over a band: the realistic case.
+  - name: fiddle tune, with band
+    source: https://www.youtube.com/watch?v=REPLACE_ME
+    reference: refs/fiddle-tune.abc
+
+  # A sung melody: vocals stem.
+  - name: song with clear vocal melody
+    source: /path/to/local/file.mp3
+    reference: refs/vocal-melody.mid

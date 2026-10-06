@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+# downloaded audio, stems and generated tabs
+work/
+out/
+# reference scores you supply for evaluation (may be copyrighted)
+eval/refs/
+node_modules/
+# Google OAuth client secret
+.env.local

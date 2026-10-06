@@ -1,0 +1,20 @@
+{
+  "name": "mandolin-tab-maker",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Pull the melody out of a recording and arrange it as a mandolin tab (Phase 0, local).",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "postinstall": "node scripts/setup.cjs",
+    "setup": "node scripts/setup.cjs",
+    "start": "node scripts/uv.cjs run mtab ui",
+    "ui": "node scripts/uv.cjs run mtab ui",
+    "tab": "node scripts/uv.cjs run mtab run",
+    "eval": "node scripts/uv.cjs run mtab eval eval/songs.yaml",
+    "test": "node scripts/uv.cjs run pytest",
+    "test:fast": "node scripts/uv.cjs run pytest --deselect tests/test_end_to_end.py",
+    "uv": "node scripts/uv.cjs"
+  }
+}
