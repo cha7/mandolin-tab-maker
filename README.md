@@ -10,40 +10,38 @@ has the same instructions as below (that page is its own repo, `mandolin-tab-mak
 
 ## Run it on your computer
 
+You copy one line, paste it, and wait. It downloads the app and the music tools (about
+2 GB on a Mac, about 6 GB on a PC; 10 to 30 minutes), puts **Mandolin Tab Maker** on your
+Desktop, and opens it in your web browser.
+
 **Mac** (needs an Apple chip, M1 or newer. To check: Apple menu → About This Mac → *Chip*):
-1. **Install Node.js.** Go to [nodejs.org](https://nodejs.org), download the version marked
-   **LTS**, open it and click through the installer.
-2. **Download the app:** [mandolin-tab-maker.zip](https://github.com/cha7/mandolin-tab-maker/archive/refs/heads/main.zip).
-   Double-click it in Downloads to unzip it.
-3. Open **Terminal**: press ⌘ Space, type *Terminal*, press Enter. Type `cd` and a space, drag
-   the **mandolin-tab-maker-main** folder onto the Terminal window, and press Enter.
-4. Type `npm install` and press Enter. The first time takes 10 to 30 minutes while it
-   downloads the music tools. It's done when you can type again.
-5. Type `npm run dev` and press Enter, then open [localhost:8765](http://localhost:8765) in
-   your web browser. Keep the window open while you use it.
+1. Open **Terminal**: press ⌘ Space, type *Terminal*, press Enter.
+2. Paste this line and press Enter:
+   ```sh
+   curl -fsSL https://raw.githubusercontent.com/cha7/mandolin-tab-maker/main/install.sh | sh
+   ```
+   If your Mac asks whether Terminal may use your Desktop folder, click **Allow**.
+3. When it's done, the app opens in your web browser. Keep the Terminal window open while
+   you use it.
 
 **Windows PC** (Windows 10 or 11):
-1. **Install Node.js.** Go to [nodejs.org](https://nodejs.org), download the version marked
-   **LTS**, open it and click through the installer.
-2. **Download the app:** [mandolin-tab-maker.zip](https://github.com/cha7/mandolin-tab-maker/archive/refs/heads/main.zip).
-   In Downloads, right-click it, choose **Extract All**, then **Extract**.
-3. Open the extracted **mandolin-tab-maker-main** folder (the one with *README.md* in it).
-   Click the address bar at the top, type `cmd`, and press Enter. A black Command Prompt
-   window opens.
-4. Type `npm install` and press Enter. The first time takes 10 to 30 minutes while it
-   downloads the music tools. It's done when you can type again.
-5. Type `npm run dev` and press Enter, then open [localhost:8765](http://localhost:8765) in
-   your web browser. Keep the window open while you use it.
+1. Press **Windows key + R**. A small *Run* box opens.
+2. Paste this line and press Enter:
+   ```
+   powershell -ExecutionPolicy ByPass -c "irm https://raw.githubusercontent.com/cha7/mandolin-tab-maker/main/install.ps1 | iex"
+   ```
+3. When it's done, the app opens in your web browser. Keep the black window open while you
+   use it.
 
-**Next time:** open Terminal (Mac) or Command Prompt (PC) in the folder the same way, type
-`npm run dev`, and go to [localhost:8765](http://localhost:8765). To stop it, close the
-window. Your tabs are saved in the **out** folder inside the app's folder.
+**Next time:** double-click **Mandolin Tab Maker** on your Desktop. To stop it, close its
+window. Your tabs are saved in the **out** folder inside the **MandolinTabMaker** folder in
+your home folder. To update the app, paste the same line again (your tabs are kept).
 
 A tab takes a minute or two on a computer with an NVIDIA graphics card, and 10 to 20 minutes
 on others. Tabs of copyrighted songs are for your own practice, not for sharing.
 
 (The same steps are on cha7j.com/mandolin-tab-maker, in the `mandolin-tab-maker-info` repo's
-`src/app/page.js`: keep the two in step.)
+`src/app/page.js`: keep the two in step. Both link to `install.sh` / `install.ps1` below.)
 
 ---
 
@@ -53,9 +51,30 @@ The rest is for working on the app.
 It's local only: nothing here is deployed.
 
 ```
-Browser ─► Next.js app (127.0.0.1:8765) ─► mtab run <url>  (Python engine, one job at a time)
-              src/app, src/data/jobs.js        └─ work/<song>/ cache, out/<song>/ tab + report
+Browser ─► mtab app (Python, 127.0.0.1:8765) ─► mtab run <url>  (child process, one job at a time)
+           page from mtab/web/, JSON API          └─ work/<song>/ cache, out/<song>/ tab + report
 ```
+
+Running the app needs only Python, set up by [uv](https://docs.astral.sh/uv/): `mtab app`
+serves the page and its API. The page is a Next.js static export, built by `npm run build`
+into `mtab/web/` and **committed**, so people who install the app never need Node.js. Node is
+only for working on the page.
+
+## Install scripts
+
+`install.sh` (Mac, Linux) and `install.ps1` (Windows) are what the steps above run, straight
+from this repo's `main` branch (so the repo must be public). Each one:
+1. downloads `main` as an archive into `~/MandolinTabMaker` (`MTAB_DIR` to change it),
+   merging over what's there, so `out/`, `work/` and `.venv/` survive an update;
+2. installs uv into the user folder if it's missing;
+3. runs `uv sync --no-dev`: Python 3.11, PyTorch (the CUDA build on Windows and Linux, PyPI's
+   on Macs), Demucs, CREPE, yt-dlp and a bundled ffmpeg (`pyproject.toml`);
+4. writes a launcher (`Mandolin Tab Maker.command` / `.bat`, running `uv run --no-dev mtab app`)
+   and puts it (Mac) or a shortcut to it with `assets/mandolin.ico` (Windows) on the Desktop;
+5. starts the app, which opens the browser.
+
+They need no git, Node.js or Python of your own. `install.ps1` must stay ASCII (it runs
+through `irm | iex`) and pauses on an error so the window doesn't close before it's read.
 
 ## Quick start
 
@@ -74,20 +93,19 @@ Browser ─► Next.js app (127.0.0.1:8765) ─► mtab run <url>  (Python engin
 
 ```bash
 npm install
-npm run dev       # http://localhost:8765
+npm run dev       # the page at http://localhost:3000, the Python app on :8765
 npm test
 ```
 
-`npm install` installs the app's packages, then [uv](https://docs.astral.sh/uv/) into your
-user folder if it's missing, then the Python environment into `.venv`: Python 3.11, PyTorch
-(the CUDA build on Windows and Linux, PyPI's on Macs), Demucs, CREPE and a bundled ffmpeg
-(`pyproject.toml`). It needs no git or Python of your own. The first time downloads several GB.
-Set `MTAB_SKIP_SETUP=1` to skip the Python part; `npm run setup:python` runs it again.
+`npm install` installs the page's packages, then uv into your user folder if it's missing,
+then the Python environment into `.venv` (the same as the install scripts, plus pytest). Set
+`MTAB_SKIP_SETUP=1` to skip the Python part; `npm run setup:python` runs it again.
 
 | command | does |
 |---|---|
-| `npm run dev` | the app at http://localhost:8765 |
-| `npm run build` / `npm start` | a production build, then serve it at http://localhost:8765 |
+| `npm run dev` | the page with hot reload at http://localhost:3000, forwarding `/api` to `mtab app --dev` on :8765 (`scripts/dev.mjs` starts both) |
+| `npm run build` | export the page into `mtab/web/`. **Commit it** after any change to `src/`: it's what everyone else runs |
+| `npm run app` | `mtab app`: the app as people run it, at http://localhost:8765 (opens the browser; `-- --no-browser`, `-- --port <n>`) |
 | `npm run tab -- <url or file> [options]` | one tab from the command line (`npm run tab -- --help`) |
 | `npm run eval` | score `eval/songs.yaml` against reference melodies |
 | `npm test` / `npm run test:fast` | Vitest, then pytest / the same without the slow end-to-end test |
@@ -132,17 +150,24 @@ seconds. Delete a song's `work/` folder to start over.
 
 | Where | What |
 |---|---|
-| `src/app/` | The page (`page.js`, `TabMaker.jsx`, `page.module.css`), the layout, and JSON routes in `api/`: `jobs` (start), `jobs/[id]` (progress, then the tab), `history`, `files/[id]/[file]` |
-| `src/data/jobs.js` | The job queue, songs made before and their files. Routes call these, never the engine |
-| `src/lib/local.js` | `localOnly(request)`: every route calls it first (Host and Origin checks) |
+| `src/app/` | The page (`page.js`, `TabMaker.jsx`, `page.module.css`, `Mandolin.jsx` the mark), the layout |
 | `src/lib/tab.js` | Reading the engine's tab.txt and report for the page |
-| `mtab/` | The Python engine and its CLI (below); `tests/` is its pytest suite |
+| `next.config.mjs` | `next build`: a static export into `mtab/web/` (not Next's default `out/`, where the tabs are). `next dev`: a normal dev server forwarding `/api` to :8765 (static exports don't allow rewrites) |
+| `mtab/app.py` | `mtab app`: serves `mtab/web/` and the JSON API (`POST /api/jobs` start, `GET /api/jobs/<id>` progress then the tab, `/api/history`, `/api/files/<id>/<file>`); the job queue, songs made before and their files |
+| `mtab/` | The Python engine and its CLI (below); `tests/` is its pytest suite (`test_app.py` for the server) |
+| `install.sh`, `install.ps1` | The install scripts (above) |
 
-**The engine is the CLI.** A job runs `mtab run <youtube url> <flags>` as a child process
-(through `scripts/uv.cjs`), one at a time since the GPU can't share. Its timestamped
-`[HH:MM:SS]` lines become the job's log, and `out/<song>/` its result; the song id is the
-YouTube video id. To offer a new engine option on the page: add the CLI flag, then its check
-in `optionArgs()` and a control in `TabMaker.jsx`.
+**The engine is the CLI.** A job runs `python -m mtab.cli run <youtube url> <flags>` as a
+child process, one at a time since the GPU can't share. Its timestamped `[HH:MM:SS]` lines
+become the job's log, and `out/<song>/` its result; the song id is the YouTube video id. To
+offer a new engine option on the page: add the CLI flag, then its check in `option_args()`
+(`mtab/app.py`) and a control in `TabMaker.jsx`, then `npm run build`.
+
+**Local only.** The app downloads whatever link it's given, so it listens on 127.0.0.1, and
+every API request passes `refused()` first: the Host must be localhost (blocks DNS
+rebinding), and a POST's Origin must be the app's own page (blocks other websites). POSTs
+take JSON only, and files are served only from `FILES` for a validated song id. The server
+imports no PyTorch, so it starts in a moment.
 
 ### Design
 

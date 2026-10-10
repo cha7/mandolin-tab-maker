@@ -1,0 +1,5 @@
+# install.sh runs through `curl | sh` on Macs: LF only. mtab/web/ is the built page.
+* text=auto
+*.sh text eol=lf
+*.command text eol=lf
+mtab/web/** linguist-generated=true -diff

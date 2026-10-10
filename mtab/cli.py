@@ -3,8 +3,9 @@ import json
 import sys
 from pathlib import Path
 
-from . import evaluate, pipeline
-from .separate import MELODY_STEMS
+# The engine (PyTorch and friends) is imported only by the commands that use it, so
+# `mtab app` starts quickly.
+from .app import MELODY_STEMS
 
 
 def main(argv=None) -> int:
@@ -32,7 +33,17 @@ def main(argv=None) -> int:
     e.add_argument("--work", type=Path, default=Path("work"))
     e.add_argument("--out", type=Path, default=Path("out"))
 
+    w = sub.add_parser("app", help="the tab maker's page on http://localhost:8765 (opens your browser)")
+    w.add_argument("--port", type=int, default=8765)
+    w.add_argument("--no-browser", action="store_true", help="don't open the browser")
+    w.add_argument("--dev", action="store_true", help="also accept the Next dev server's page (npm run dev)")
+
     a = ap.parse_args(argv)
+    if a.cmd == "app":
+        from .app import serve
+        return serve(a.port, open_browser=not a.no_browser, dev=a.dev)
+    from . import evaluate, pipeline
+
     if a.cmd == "run":
         opts = pipeline.Options(stem=a.stem, key_change=a.key_change, bpm=a.bpm,
                                 beats_per_bar=a.beats_per_bar, subdivision=a.grid,
