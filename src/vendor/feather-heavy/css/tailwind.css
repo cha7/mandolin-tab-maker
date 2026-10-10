@@ -1,0 +1,44 @@
+/*
+ * For Tailwind v4 apps: the tokens as Tailwind theme values, so
+ * `bg-fh-surface`, `text-fh-muted`, `border-fh-line`, `rounded-fh-md` work and
+ * follow light/dark on their own (no `dark:` variants needed).
+ *
+ *   @import "tailwindcss";
+ *   @import "@cha7/feather-heavy-design-system/tailwind.css";
+ *
+ * This brings tokens.css only. Add css/base.css and css/components.css too
+ * if the app wants the element defaults and .fh-* classes.
+ */
+@import "./tokens.css";
+
+@theme inline {
+  --color-fh-bg: var(--fh-bg);
+  --color-fh-surface: var(--fh-surface);
+  --color-fh-surface-muted: var(--fh-surface-muted);
+  --color-fh-line: var(--fh-line);
+  --color-fh-line-strong: var(--fh-line-strong);
+  --color-fh-text: var(--fh-text);
+  --color-fh-muted: var(--fh-text-muted);
+  --color-fh-accent: var(--fh-accent);
+  --color-fh-accent-hover: var(--fh-accent-hover);
+  --color-fh-accent-soft: var(--fh-accent-soft);
+  --color-fh-on-accent: var(--fh-on-accent);
+  --color-fh-success: var(--fh-success);
+  --color-fh-success-soft: var(--fh-success-soft);
+  --color-fh-warning: var(--fh-warning);
+  --color-fh-warning-soft: var(--fh-warning-soft);
+  --color-fh-danger: var(--fh-danger);
+  --color-fh-danger-soft: var(--fh-danger-soft);
+  --color-fh-info: var(--fh-info);
+  --color-fh-info-soft: var(--fh-info-soft);
+
+  --font-fh-sans: var(--fh-font-sans);
+  --font-fh-mono: var(--fh-font-mono);
+
+  --radius-fh-sm: var(--fh-radius-sm);
+  --radius-fh-md: var(--fh-radius-md);
+  --radius-fh-lg: var(--fh-radius-lg);
+
+  --shadow-fh-sm: var(--fh-shadow-sm);
+  --shadow-fh-md: var(--fh-shadow-md);
+}

@@ -8,5 +8,6 @@ out/
 # reference scores you supply for evaluation (may be copyrighted)
 eval/refs/
 node_modules/
-# Google OAuth client secret
 .env.local
+.next/
+next-env.d.ts

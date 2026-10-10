@@ -1,0 +1,148 @@
+/*
+ * Base: element defaults on the tokens, plus three layout helpers.
+ * Everything here is plain elements or .fh-* classes, so it sits under
+ * an app's own CSS (or Tailwind's preflight) without fighting it.
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--fh-bg);
+  color: var(--fh-text);
+  font-family: var(--fh-font-sans);
+  font-size: var(--fh-text-md);
+  line-height: var(--fh-leading);
+  accent-color: var(--fh-accent); /* checkboxes, radios, range */
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0 0 var(--fh-space-3);
+  line-height: var(--fh-leading-tight);
+  font-weight: 650;
+  text-wrap: balance;
+}
+h1 {
+  font-size: var(--fh-text-2xl);
+}
+h2 {
+  font-size: var(--fh-text-xl);
+}
+h3 {
+  font-size: var(--fh-text-lg);
+}
+h4 {
+  font-size: var(--fh-text-md);
+}
+
+p {
+  margin: 0 0 var(--fh-space-4);
+}
+
+a {
+  color: var(--fh-accent);
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+}
+a:hover {
+  color: var(--fh-accent-hover);
+  text-decoration-thickness: 2px;
+}
+
+small {
+  color: var(--fh-text-muted);
+  font-size: var(--fh-text-sm);
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: var(--fh-font-mono);
+  font-size: 0.9em;
+}
+:not(pre) > code {
+  padding: 0.1em 0.35em;
+  border-radius: var(--fh-radius-sm);
+  background: var(--fh-surface-muted);
+}
+pre {
+  margin: 0 0 var(--fh-space-4);
+  padding: var(--fh-space-3) var(--fh-space-4);
+  overflow-x: auto;
+  border: 1px solid var(--fh-line);
+  border-radius: var(--fh-radius-md);
+  background: var(--fh-surface-muted);
+}
+
+hr {
+  margin: var(--fh-space-6) 0;
+  border: 0;
+  border-top: 1px solid var(--fh-line);
+}
+
+::selection {
+  background: var(--fh-accent-soft);
+}
+
+:focus-visible {
+  outline: 2px solid var(--fh-focus);
+  outline-offset: 2px;
+}
+
+/* ---- Layout helpers ---------------------------------------------------- */
+
+/* Centered column with side gutters. --fh-container-width to change it. */
+.fh-container {
+  width: 100%;
+  max-width: var(--fh-container-width, 72rem);
+  margin-inline: auto;
+  padding-inline: var(--fh-space-4);
+}
+
+/* Vertical rhythm: children spaced by --fh-gap. */
+.fh-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fh-gap, var(--fh-space-4));
+}
+.fh-stack > * {
+  margin: 0;
+}
+
+/* A wrapping row: buttons, labels, toolbar items. */
+.fh-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--fh-gap, var(--fh-space-2));
+}
+
+.fh-muted {
+  color: var(--fh-text-muted);
+}
+
+.fh-mono {
+  font-family: var(--fh-font-mono);
+}
+
+.fh-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

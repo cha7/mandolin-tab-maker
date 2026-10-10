@@ -1,0 +1,123 @@
+/*
+ * Feather Heavy tokens. Two tiers, after PatternFly:
+ *
+ *   1. Palette   --fh-green-*, --fh-gray-*: raw colors. Never use these in
+ *                an app; they exist so the roles below have names to point at.
+ *   2. Roles     --fh-bg, --fh-text, --fh-accent, --fh-danger, ...: what a
+ *                color is for. Apps use only these.
+ *
+ * Light and dark: every role is light-dark(<light>, <dark>), which follows
+ * `color-scheme`. That follows the OS unless <html data-theme="light|dark">
+ * pins it (ThemeScript / ThemeToggle set that attribute).
+ */
+
+:root {
+  color-scheme: light dark;
+}
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+:root {
+  /* ---- 1. Palette ------------------------------------------------------ */
+
+  /* Forest green */
+  --fh-green-50: #eef5f0;
+  --fh-green-100: #d7e9dd;
+  --fh-green-200: #b0d3bc;
+  --fh-green-300: #7fb894;
+  --fh-green-400: #529870;
+  --fh-green-500: #377c55;
+  --fh-green-600: #2a6342;
+  --fh-green-700: #214f35;
+  --fh-green-800: #1a3e2a;
+  --fh-green-900: #13301f;
+  --fh-green-950: #0b1a11;
+
+  /* Neutrals, tinted toward the green */
+  --fh-gray-0: #ffffff;
+  --fh-gray-25: #f6f8f6;
+  --fh-gray-50: #eef3ef;
+  --fh-gray-100: #e2ebe5;
+  --fh-gray-200: #d9e2db;
+  --fh-gray-300: #bccac0;
+  --fh-gray-400: #93a69a;
+  --fh-gray-500: #6b7c71;
+  --fh-gray-600: #56655c;
+  --fh-gray-700: #3a473f;
+  --fh-gray-800: #24342a;
+  --fh-gray-850: #17241c;
+  --fh-gray-900: #111b15;
+  --fh-gray-950: #0b130e;
+  --fh-gray-975: #13201a;
+
+  /* ---- 2. Roles -------------------------------------------------------- */
+
+  /* Surfaces */
+  --fh-bg: light-dark(var(--fh-gray-25), var(--fh-gray-950));
+  --fh-surface: light-dark(var(--fh-gray-0), var(--fh-gray-900));
+  --fh-surface-muted: light-dark(var(--fh-gray-50), var(--fh-gray-850));
+  --fh-line: light-dark(var(--fh-gray-200), var(--fh-gray-800));
+  --fh-line-strong: light-dark(var(--fh-gray-300), var(--fh-gray-700));
+  /* Form control borders: 3:1 against the surface, as WCAG asks of controls */
+  --fh-field-border: var(--fh-gray-500);
+
+  /* Text */
+  --fh-text: light-dark(var(--fh-gray-975), var(--fh-gray-100));
+  --fh-text-muted: light-dark(var(--fh-gray-600), var(--fh-gray-400));
+
+  /* Accent: links, primary buttons, focus, selection */
+  --fh-accent: light-dark(var(--fh-green-600), var(--fh-green-300));
+  --fh-accent-hover: light-dark(var(--fh-green-700), var(--fh-green-200));
+  --fh-accent-soft: light-dark(var(--fh-green-50), rgb(127 184 148 / 0.12));
+  --fh-on-accent: light-dark(var(--fh-gray-0), var(--fh-gray-950));
+  --fh-focus: var(--fh-accent);
+
+  /* Status: the color carries meaning (icon, border, text); -soft is a
+     background tint. Body text on -soft stays --fh-text. */
+  --fh-success: light-dark(#3a7a26, #8fd07a);
+  --fh-success-soft: light-dark(#edf6e8, rgb(143 208 122 / 0.12));
+  --fh-warning: light-dark(#8f5400, #f0b44c);
+  --fh-warning-soft: light-dark(#fdf3e1, rgb(240 180 76 / 0.12));
+  --fh-danger: light-dark(#b42318, #f2877d);
+  --fh-danger-soft: light-dark(#fdecea, rgb(242 135 125 / 0.12));
+  --fh-on-danger: light-dark(var(--fh-gray-0), var(--fh-gray-950));
+  --fh-info: light-dark(#2b5f8a, #8fb8de);
+  --fh-info-soft: light-dark(#e8f0f7, rgb(143 184 222 / 0.12));
+
+  /* Elevation */
+  --fh-shadow-sm: 0 1px 2px light-dark(rgb(19 32 26 / 0.06), rgb(0 0 0 / 0.4));
+  --fh-shadow-md: 0 1px 2px light-dark(rgb(19 32 26 / 0.06), rgb(0 0 0 / 0.4)),
+    0 8px 24px -12px light-dark(rgb(19 32 26 / 0.18), rgb(0 0 0 / 0.6));
+
+  /* Type */
+  --fh-font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --fh-font-mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  --fh-text-xs: 0.75rem;
+  --fh-text-sm: 0.875rem;
+  --fh-text-md: 1rem;
+  --fh-text-lg: 1.125rem;
+  --fh-text-xl: 1.375rem;
+  --fh-text-2xl: 1.75rem;
+  --fh-leading: 1.5;
+  --fh-leading-tight: 1.25;
+
+  /* Space: a 4px scale */
+  --fh-space-1: 0.25rem;
+  --fh-space-2: 0.5rem;
+  --fh-space-3: 0.75rem;
+  --fh-space-4: 1rem;
+  --fh-space-6: 1.5rem;
+  --fh-space-8: 2rem;
+  --fh-space-12: 3rem;
+
+  /* Shape and motion */
+  --fh-radius-sm: 3px;
+  --fh-radius-md: 6px;
+  --fh-radius-lg: 10px;
+  --fh-radius-pill: 999px;
+  --fh-duration: 120ms;
+}

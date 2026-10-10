@@ -32,16 +32,8 @@ def main(argv=None) -> int:
     e.add_argument("--work", type=Path, default=Path("work"))
     e.add_argument("--out", type=Path, default=Path("out"))
 
-    u = sub.add_parser("ui", help="local web page: paste a YouTube link, get the tab")
-    u.add_argument("--port", type=int, default=8765)
-    u.add_argument("--work", type=Path, default=Path("work"))
-    u.add_argument("--out", type=Path, default=Path("out"))
-
     a = ap.parse_args(argv)
-    if a.cmd == "ui":
-        from .ui import serve
-        serve(a.port, a.work, a.out)
-    elif a.cmd == "run":
+    if a.cmd == "run":
         opts = pipeline.Options(stem=a.stem, key_change=a.key_change, bpm=a.bpm,
                                 beats_per_bar=a.beats_per_bar, subdivision=a.grid,
                                 crepe=a.crepe, separate=not a.no_separate)

@@ -1,0 +1,345 @@
+/*
+ * Components, as classes on plain HTML. Block + --modifier, after
+ * PatternFly: class="fh-button fh-button--primary".
+ *
+ *   .fh-masthead  top bar: brand, nav, actions
+ *   .fh-button    --primary --secondary --plain --danger, --sm
+ *   .fh-card      __header __title __body __footer
+ *   .fh-alert     --success --warning --danger --info; __title
+ *   .fh-label     --accent --success --warning --danger --info
+ *   .fh-table     --compact; td.fh-num for numbers
+ *   .fh-field     label + control + __help / __error
+ *   .fh-toolbar   a row of filters above a table
+ */
+
+/* ---- Masthead ---------------------------------------------------------- */
+
+.fh-masthead {
+  border-bottom: 1px solid var(--fh-line);
+  background: var(--fh-surface);
+}
+.fh-masthead__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--fh-space-4);
+  min-height: 3.5rem;
+}
+.fh-masthead__brand {
+  display: inline-flex;
+  flex-shrink: 0;
+  white-space: nowrap;
+  align-items: center;
+  gap: var(--fh-space-2);
+  color: var(--fh-text);
+  font-weight: 650;
+  text-decoration: none;
+}
+.fh-masthead__brand:hover {
+  color: var(--fh-text);
+}
+.fh-masthead__brand svg {
+  color: var(--fh-accent);
+}
+.fh-masthead__nav {
+  display: flex;
+  gap: var(--fh-space-1);
+  min-width: 0;
+  overflow-x: auto;
+}
+.fh-masthead__nav a {
+  white-space: nowrap;
+  padding: var(--fh-space-1) var(--fh-space-2);
+  border-radius: var(--fh-radius-md);
+  color: var(--fh-text-muted);
+  font-size: var(--fh-text-sm);
+  text-decoration: none;
+}
+.fh-masthead__nav a:hover,
+.fh-masthead__nav a[aria-current="page"] {
+  background: var(--fh-surface-muted);
+  color: var(--fh-text);
+}
+.fh-masthead__actions {
+  margin-left: auto;
+}
+/* Narrow screens: icon-only buttons in the masthead (they keep aria-label). */
+@media (max-width: 40rem) {
+  .fh-masthead__inner {
+    gap: var(--fh-space-2);
+  }
+  .fh-masthead__nav a {
+    padding-inline: var(--fh-space-1);
+  }
+  .fh-masthead__actions .fh-button > span {
+    display: none;
+  }
+}
+
+/* ---- Button ------------------------------------------------------------ */
+
+.fh-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--fh-space-2);
+  min-height: 2.25rem;
+  padding: var(--fh-space-1) var(--fh-space-4);
+  border: 1px solid transparent;
+  border-radius: var(--fh-radius-md);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: var(--fh-text-sm);
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--fh-duration), border-color var(--fh-duration), color var(--fh-duration);
+}
+.fh-button:disabled,
+.fh-button[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.fh-button--sm {
+  min-height: 1.75rem;
+  padding: 0 var(--fh-space-3);
+  font-size: var(--fh-text-xs);
+}
+
+.fh-button--primary {
+  background: var(--fh-accent);
+  color: var(--fh-on-accent);
+}
+.fh-button--primary:hover:not(:disabled) {
+  background: var(--fh-accent-hover);
+  color: var(--fh-on-accent);
+}
+
+.fh-button--secondary {
+  border-color: var(--fh-accent);
+  color: var(--fh-accent);
+}
+.fh-button--secondary:hover:not(:disabled) {
+  background: var(--fh-accent-soft);
+  color: var(--fh-accent-hover);
+}
+
+.fh-button--plain {
+  color: var(--fh-text-muted);
+}
+.fh-button--plain:hover:not(:disabled) {
+  background: var(--fh-surface-muted);
+  color: var(--fh-text);
+}
+
+.fh-button--danger {
+  background: var(--fh-danger);
+  color: var(--fh-on-danger);
+}
+.fh-button--danger:hover:not(:disabled) {
+  filter: brightness(0.92);
+  color: var(--fh-on-danger);
+}
+
+/* ---- Card -------------------------------------------------------------- */
+
+.fh-card {
+  border: 1px solid var(--fh-line);
+  border-radius: var(--fh-radius-lg);
+  background: var(--fh-surface);
+  box-shadow: var(--fh-shadow-sm);
+}
+.fh-card__header,
+.fh-card__body,
+.fh-card__footer {
+  padding: var(--fh-space-4) var(--fh-space-6);
+}
+.fh-card__header + .fh-card__body {
+  padding-top: 0;
+}
+.fh-card__title {
+  margin: 0;
+  font-size: var(--fh-text-lg);
+}
+.fh-card__body > :last-child {
+  margin-bottom: 0;
+}
+.fh-card__footer {
+  border-top: 1px solid var(--fh-line);
+}
+
+/* ---- Alert ------------------------------------------------------------- */
+
+.fh-alert {
+  --fh-alert-color: var(--fh-info);
+  --fh-alert-bg: var(--fh-info-soft);
+  padding: var(--fh-space-3) var(--fh-space-4);
+  border: 1px solid color-mix(in srgb, var(--fh-alert-color) 35%, transparent);
+  border-left: 4px solid var(--fh-alert-color);
+  border-radius: var(--fh-radius-md);
+  background: var(--fh-alert-bg);
+  font-size: var(--fh-text-sm);
+}
+.fh-alert__title {
+  margin: 0 0 var(--fh-space-1);
+  color: var(--fh-alert-color);
+  font-size: var(--fh-text-sm);
+  font-weight: 650;
+}
+.fh-alert > :last-child {
+  margin-bottom: 0;
+}
+.fh-alert--success {
+  --fh-alert-color: var(--fh-success);
+  --fh-alert-bg: var(--fh-success-soft);
+}
+.fh-alert--warning {
+  --fh-alert-color: var(--fh-warning);
+  --fh-alert-bg: var(--fh-warning-soft);
+}
+.fh-alert--danger {
+  --fh-alert-color: var(--fh-danger);
+  --fh-alert-bg: var(--fh-danger-soft);
+}
+
+/* ---- Label (status pill) ----------------------------------------------- */
+
+.fh-label {
+  --fh-label-color: var(--fh-text-muted);
+  --fh-label-bg: var(--fh-surface-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--fh-space-1);
+  padding: 0.0625rem var(--fh-space-2);
+  border: 1px solid color-mix(in srgb, var(--fh-label-color) 30%, transparent);
+  border-radius: var(--fh-radius-pill);
+  background: var(--fh-label-bg);
+  color: var(--fh-label-color);
+  font-size: var(--fh-text-xs);
+  font-weight: 600;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+.fh-label--accent {
+  --fh-label-color: var(--fh-accent);
+  --fh-label-bg: var(--fh-accent-soft);
+}
+.fh-label--success {
+  --fh-label-color: var(--fh-success);
+  --fh-label-bg: var(--fh-success-soft);
+}
+.fh-label--warning {
+  --fh-label-color: var(--fh-warning);
+  --fh-label-bg: var(--fh-warning-soft);
+}
+.fh-label--danger {
+  --fh-label-color: var(--fh-danger);
+  --fh-label-bg: var(--fh-danger-soft);
+}
+.fh-label--info {
+  --fh-label-color: var(--fh-info);
+  --fh-label-bg: var(--fh-info-soft);
+}
+
+/* ---- Table ------------------------------------------------------------- */
+
+.fh-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fh-text-sm);
+  font-variant-numeric: tabular-nums;
+}
+.fh-table th,
+.fh-table td {
+  padding: var(--fh-space-3) var(--fh-space-4);
+  border-bottom: 1px solid var(--fh-line);
+  text-align: left;
+  vertical-align: top;
+}
+.fh-table th {
+  color: var(--fh-text-muted);
+  font-size: var(--fh-text-xs);
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.fh-table tbody tr:hover {
+  background: var(--fh-surface-muted);
+}
+.fh-table--compact th,
+.fh-table--compact td {
+  padding: var(--fh-space-1) var(--fh-space-3);
+}
+.fh-table .fh-num {
+  text-align: right;
+}
+/* Wrap a wide table in this so it scrolls instead of the page. */
+.fh-table-scroll {
+  overflow-x: auto;
+}
+
+/* ---- Form field -------------------------------------------------------- */
+
+.fh-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fh-space-1);
+}
+.fh-field > label:first-child,
+.fh-field__label {
+  font-size: var(--fh-text-sm);
+  font-weight: 600;
+}
+.fh-field__help {
+  color: var(--fh-text-muted);
+  font-size: var(--fh-text-xs);
+}
+.fh-field__error {
+  color: var(--fh-danger);
+  font-size: var(--fh-text-xs);
+}
+
+.fh-input,
+.fh-select,
+.fh-textarea {
+  width: 100%;
+  min-height: 2.25rem;
+  padding: var(--fh-space-1) var(--fh-space-3);
+  border: 1px solid var(--fh-field-border);
+  border-radius: var(--fh-radius-md);
+  background: var(--fh-surface);
+  color: var(--fh-text);
+  font: inherit;
+  font-size: var(--fh-text-sm);
+}
+.fh-textarea {
+  min-height: 5rem;
+  padding-block: var(--fh-space-2);
+  resize: vertical;
+}
+.fh-input:focus-visible,
+.fh-select:focus-visible,
+.fh-textarea:focus-visible {
+  outline-offset: 0;
+  border-color: var(--fh-focus);
+}
+.fh-input[aria-invalid="true"],
+.fh-select[aria-invalid="true"],
+.fh-textarea[aria-invalid="true"] {
+  border-color: var(--fh-danger);
+}
+
+/* ---- Toolbar ----------------------------------------------------------- */
+
+.fh-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--fh-space-3);
+  padding: var(--fh-space-3) 0;
+}
+.fh-toolbar__spacer {
+  flex: 1;
+}

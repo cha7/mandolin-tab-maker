@@ -29,7 +29,7 @@ function findUv() {
 function runUv(args) {
   const uv = findUv();
   if (!uv) {
-    console.error("uv isn't installed. Run `npm install` (or `npm run setup`) first.");
+    console.error("uv isn't installed. Run `npm install` (or `npm run setup:python`) first.");
     return 1;
   }
   const r = spawnSync(uv, args, { cwd: ROOT, stdio: "inherit" });

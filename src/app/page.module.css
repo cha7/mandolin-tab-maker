@@ -1,0 +1,270 @@
+/* The tab maker's layout, on the Feather Heavy tokens. Colors come only from the --fh-* roles,
+   which switch with the theme on their own: no dark-mode block here. Confidence: high is
+   success, medium warning, low danger, no melody line-strong. */
+
+.intro {
+  max-width: 46rem;
+}
+
+/* ---- Link form */
+.row {
+  display: flex;
+  gap: var(--fh-space-2);
+}
+.row :global(.fh-input) {
+  flex: 1;
+  min-width: 0;
+  min-height: 2.5rem;
+  font-size: var(--fh-text-md);
+}
+.row :global(.fh-button) {
+  min-height: 2.5rem;
+}
+.options {
+  margin-top: var(--fh-space-4);
+}
+.options summary {
+  color: var(--fh-text-muted);
+  font-size: var(--fh-text-sm);
+  cursor: pointer;
+}
+.opts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: var(--fh-space-3) var(--fh-space-4);
+  margin-top: var(--fh-space-3);
+}
+.check {
+  display: flex;
+  align-items: center;
+  gap: var(--fh-space-2);
+  font-size: var(--fh-text-sm);
+}
+.note {
+  margin-top: var(--fh-space-3);
+}
+
+/* ---- Progress */
+.stage {
+  font-weight: 600;
+}
+.spinner {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-right: var(--fh-space-2);
+  border: 2px solid var(--fh-line);
+  border-top-color: var(--fh-accent);
+  border-radius: 50%;
+  vertical-align: -1px;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.log {
+  max-height: 10rem;
+  margin: var(--fh-space-3) 0 0;
+  overflow: auto;
+  color: var(--fh-text-muted);
+  font-size: var(--fh-text-xs);
+  white-space: pre-wrap;
+}
+
+/* ---- Result */
+.title {
+  margin-bottom: var(--fh-space-2);
+  font-size: var(--fh-text-xl);
+}
+.chips {
+  --fh-gap: var(--fh-space-1);
+  margin-bottom: var(--fh-space-4);
+}
+.chips b {
+  color: var(--fh-text);
+  font-weight: 650;
+}
+.hint {
+  color: var(--fh-text-muted);
+  font-size: var(--fh-text-xs);
+}
+.strip {
+  display: flex;
+  gap: 2px;
+  height: 14px;
+  margin: var(--fh-space-1) 0 var(--fh-space-2);
+}
+.strip button {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.strip button:hover {
+  filter: brightness(1.15);
+}
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--fh-space-3);
+  color: var(--fh-text-muted);
+  font-size: var(--fh-text-xs);
+}
+.legend i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: var(--fh-space-1);
+  border-radius: 2px;
+  vertical-align: -1px;
+}
+.high {
+  background: var(--fh-success);
+}
+.medium {
+  background: var(--fh-warning);
+}
+.low {
+  background: var(--fh-danger);
+}
+.rest {
+  background: var(--fh-line-strong);
+}
+
+.toolbar {
+  align-items: center;
+  margin-top: var(--fh-space-2);
+  font-size: var(--fh-text-sm);
+}
+/* Two-way switch: Confident only / Everything. */
+.seg {
+  display: inline-flex;
+  overflow: hidden;
+  border: 1px solid var(--fh-line-strong);
+  border-radius: var(--fh-radius-md);
+}
+.seg button {
+  padding: var(--fh-space-1) var(--fh-space-3);
+  border: 0;
+  background: transparent;
+  color: var(--fh-text-muted);
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+}
+.seg button:hover:not(.on) {
+  background: var(--fh-surface-muted);
+  color: var(--fh-text);
+}
+.seg .on {
+  background: var(--fh-accent);
+  color: var(--fh-on-accent);
+}
+.audio {
+  width: 100%;
+  margin: var(--fh-space-1) 0 2px;
+}
+
+.tab {
+  margin-top: var(--fh-space-4);
+  overflow-x: auto;
+}
+.tab pre {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 13px;
+}
+.tab .head {
+  margin-bottom: var(--fh-space-4);
+  color: var(--fh-text-muted);
+  white-space: pre-wrap;
+}
+.block {
+  margin: 0 0 var(--fh-space-4);
+  padding-left: var(--fh-space-3);
+  border-left: 3px solid var(--fh-line-strong);
+}
+.block.high,
+.block.medium,
+.block.low,
+.block.rest {
+  background: none;
+}
+.block.high {
+  border-color: var(--fh-success);
+}
+.block.medium {
+  border-color: var(--fh-warning);
+}
+.block.low {
+  border-color: var(--fh-danger);
+  opacity: 0.75;
+}
+.block.rest {
+  opacity: 0.5;
+}
+.block h3 {
+  margin: 0 0 2px;
+  color: var(--fh-text-muted);
+  font-size: var(--fh-text-xs);
+  font-weight: 600;
+}
+.block pre {
+  line-height: 1.35;
+  white-space: pre;
+}
+.hiddenNote {
+  margin: 0 0 var(--fh-space-4);
+  color: var(--fh-text-muted);
+  font-size: var(--fh-text-sm);
+  font-style: italic;
+}
+
+/* ---- Made before */
+.history {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.history li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--fh-space-3);
+  padding: var(--fh-space-2) 0;
+  border-top: 1px solid var(--fh-line);
+  font-size: var(--fh-text-sm);
+}
+.history li:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+.history a {
+  overflow: hidden;
+  color: var(--fh-text);
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.history a:hover {
+  color: var(--fh-accent);
+  text-decoration: underline;
+}
+.meta {
+  color: var(--fh-text-muted);
+  white-space: nowrap;
+}
+
+@media (max-width: 40rem) {
+  .row {
+    flex-wrap: wrap;
+  }
+  .row :global(.fh-button) {
+    flex: 1;
+  }
+}

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// `npm install` / `npm run setup`: installs uv if it's missing, then the Python
+// `npm install` / `npm run setup:python`: installs uv if it's missing, then the Python
 // environment (Python 3.11, PyTorch, Demucs, CREPE, ...) into .venv with `uv sync`.
 // The first run downloads several GB. Set MTAB_SKIP_SETUP=1 to skip it on `npm install`.
 "use strict";

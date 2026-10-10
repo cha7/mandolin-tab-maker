@@ -2,19 +2,37 @@
   "name": "mandolin-tab-maker",
   "version": "0.0.1",
   "private": true,
-  "description": "Pull the melody out of a recording and arrange it as a mandolin tab (Phase 0, local).",
-  "engines": {
-    "node": ">=18"
-  },
+  "description": "Pull the melody out of a YouTube recording and arrange it as a mandolin tab, on your own computer.",
   "scripts": {
-    "postinstall": "node scripts/setup.cjs",
-    "setup": "node scripts/setup.cjs",
-    "start": "node scripts/uv.cjs run mtab ui",
-    "ui": "node scripts/uv.cjs run mtab ui",
-    "tab": "node scripts/uv.cjs run mtab run",
+    "prebuild": "node scripts/check-node.cjs",
+    "build": "next build",
+    "predev": "node scripts/check-node.cjs",
+    "dev": "next dev --hostname 127.0.0.1 --port 8765",
+    "preeval": "node scripts/check-node.cjs",
     "eval": "node scripts/uv.cjs run mtab eval eval/songs.yaml",
-    "test": "node scripts/uv.cjs run pytest",
-    "test:fast": "node scripts/uv.cjs run pytest --deselect tests/test_end_to_end.py",
+    "postinstall": "node scripts/setup-python.cjs",
+    "presetup:python": "node scripts/check-node.cjs",
+    "setup:python": "node scripts/setup-python.cjs",
+    "prestart": "node scripts/check-node.cjs",
+    "start": "next start --hostname 127.0.0.1 --port 8765",
+    "pretab": "node scripts/check-node.cjs",
+    "tab": "node scripts/uv.cjs run mtab run",
+    "pretest": "node scripts/check-node.cjs",
+    "test": "vitest run && node scripts/uv.cjs run pytest",
+    "pretest:fast": "node scripts/check-node.cjs",
+    "test:fast": "vitest run && node scripts/uv.cjs run pytest --deselect tests/test_end_to_end.py",
+    "ui:update": "npm install --no-save @cha7/feather-heavy-design-system@latest && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/ui-vendor.mjs",
     "uv": "node scripts/uv.cjs"
+  },
+  "dependencies": {
+    "next": "^16.3.8",
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
+  },
+  "devDependencies": {
+    "vitest": "^5.0.3"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }

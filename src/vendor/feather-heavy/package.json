@@ -1,0 +1,41 @@
+{
+  "name": "@cha7/feather-heavy-design-system",
+  "version": "0.1.0",
+  "description": "Feather Heavy: a small forest-green design system (CSS tokens, base styles, components, light/dark) for the cha7 Next.js apps.",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cha7/feather-heavy-design-system.git"
+  },
+  "type": "module",
+  "exports": {
+    ".": "./react/index.js",
+    "./css": "./css/index.css",
+    "./css/*": "./css/*",
+    "./tailwind.css": "./css/tailwind.css",
+    "./icon.svg": "./assets/icon.svg",
+    "./theme.js": "./browser/theme.js"
+  },
+  "files": [
+    "css",
+    "react",
+    "browser",
+    "assets",
+    "README.md"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "peerDependencies": {
+    "react": ">=19"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

@@ -1,0 +1,7 @@
+/* The app's own styles, on top of the design system's tokens (--fh-*) and
+   classes (.fh-*). Colors come from tokens, never hex (README: Design). */
+
+main {
+  --fh-container-width: 74rem;
+  padding-block: var(--fh-space-6) var(--fh-space-12);
+}
