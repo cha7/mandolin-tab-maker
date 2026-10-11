@@ -9,11 +9,15 @@ export const metadata = {
   description: "Pull the melody out of a YouTube recording and arrange it as a mandolin tab.",
 };
 
+// FH_HUE (.env, fixed at build by next.config.mjs) gives the app its own color;
+// unset is the design system's forest green.
+const hue = process.env.FH_HUE;
+
 // suppressHydrationWarning: ThemeScript sets data-theme on <html> before
 // React hydrates (README: Design).
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" style={hue ? { "--fh-hue": hue } : undefined} suppressHydrationWarning>
       <head>
         <ThemeScript />
       </head>
