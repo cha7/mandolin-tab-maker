@@ -1,7 +1,7 @@
 # Feather Heavy design system
 
-A small design system for the cha7 Next.js apps: forest-green tokens, light and
-dark mode, element defaults, and a handful of components for technical pages
+A small design system for the cha7 Next.js apps: forest-green tokens (one hue
+setting recolors them per app), light and dark mode, element defaults, and a handful of components for technical pages
 (tables, labels, alerts, forms). Modeled on [PatternFly](https://www.patternfly.org/)'s
 ideas (two tiers of tokens, `--fh-` prefix, status colors, block--modifier
 classes), not its code. Plain CSS plus three small React components; no build
@@ -75,6 +75,8 @@ instead.
 
 Use roles, never the palette (`--fh-green-*`, `--fh-gray-*`) or hex values.
 
+Values below are at the default hue (forest green).
+
 | Token | For | Light | Dark |
 |---|---|---|---|
 | `--fh-bg` | page background | `#f6f8f6` | `#0b130e` |
@@ -96,7 +98,22 @@ Use roles, never the palette (`--fh-green-*`, `--fh-gray-*`) or hex values.
 | `--fh-info` / `-soft` | neutral notice | `#2b5f8a` | `#8fb8de` |
 
 All text colors are at least 4.5:1 (WCAG AA) on `bg`, `surface` and
-`surface-muted` in both modes.
+`surface-muted` in both modes, at every hue (the tests check every 5°).
+
+### App hue
+
+The palette is `oklch()` around one hue, `--fh-hue` (default `156`, forest
+green). Set it on `<html>` and the accent and the tinted grays move together,
+light and dark; status colors stay put, so danger is still red:
+
+```html
+<html style="--fh-hue: 245">
+```
+
+Some starting points: `156` forest, `200` teal, `245` Puget Sound blue,
+`285` dusk, `330` heather, `30` terracotta, `75` ochre. Set it on `<html>`
+(`:root`) only: the palette resolves there, so setting it on a lower element
+does nothing. The template reads it from `FH_HUE` (its README: Design system).
 
 Also: `--fh-font-sans|mono`, `--fh-text-xs…2xl`, `--fh-space-1…12` (4px
 scale), `--fh-radius-sm|md|lg|pill`, `--fh-shadow-sm|md`, `--fh-duration`.
