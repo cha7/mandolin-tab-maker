@@ -1,7 +1,7 @@
 {
   "name": "@cha7/feather-heavy-design-system",
-  "version": "0.1.0",
-  "description": "Feather Heavy: a small forest-green design system (CSS tokens, base styles, components, light/dark) for the cha7 Next.js apps.",
+  "version": "0.2.1",
+  "description": "Feather Heavy: a small design system, forest green by default (CSS tokens, base styles, components, light/dark) for the cha7 Next.js apps.",
   "license": "UNLICENSED",
   "repository": {
     "type": "git",

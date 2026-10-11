@@ -9,6 +9,12 @@
  * Light and dark: every role is light-dark(<light>, <dark>), which follows
  * `color-scheme`. That follows the OS unless <html data-theme="light|dark">
  * pins it (ThemeScript / ThemeToggle set that attribute).
+ *
+ * Hue: the palette is oklch() with one shared hue, --fh-hue (156 = forest
+ * green). Set it on <html> (style="--fh-hue: 245") to give an app its own
+ * color; lightness and chroma stay put, so contrast holds at any hue. Set it
+ * on :root only: the palette resolves there, so setting it lower does nothing.
+ * Status colors (success, warning, danger, info) don't follow the hue.
  */
 
 :root {
@@ -24,35 +30,37 @@
 :root {
   /* ---- 1. Palette ------------------------------------------------------ */
 
-  /* Forest green */
-  --fh-green-50: #eef5f0;
-  --fh-green-100: #d7e9dd;
-  --fh-green-200: #b0d3bc;
-  --fh-green-300: #7fb894;
-  --fh-green-400: #529870;
-  --fh-green-500: #377c55;
-  --fh-green-600: #2a6342;
-  --fh-green-700: #214f35;
-  --fh-green-800: #1a3e2a;
-  --fh-green-900: #13301f;
-  --fh-green-950: #0b1a11;
+  --fh-hue: 156;
 
-  /* Neutrals, tinted toward the green */
+  /* Accent scale (forest green at the default hue) */
+  --fh-green-50: oklch(96.3% 0.0099 var(--fh-hue));
+  --fh-green-100: oklch(91.7% 0.0250 var(--fh-hue));
+  --fh-green-200: oklch(83.5% 0.0490 var(--fh-hue));
+  --fh-green-300: oklch(73.3% 0.0793 var(--fh-hue));
+  --fh-green-400: oklch(62.2% 0.0941 var(--fh-hue));
+  --fh-green-500: oklch(53.1% 0.0938 var(--fh-hue));
+  --fh-green-600: oklch(45.2% 0.0813 var(--fh-hue));
+  --fh-green-700: oklch(38.7% 0.0678 var(--fh-hue));
+  --fh-green-800: oklch(33.1% 0.0552 var(--fh-hue));
+  --fh-green-900: oklch(28.1% 0.0474 var(--fh-hue));
+  --fh-green-950: oklch(20.1% 0.0277 var(--fh-hue));
+
+  /* Neutrals, tinted toward the hue */
   --fh-gray-0: #ffffff;
-  --fh-gray-25: #f6f8f6;
-  --fh-gray-50: #eef3ef;
-  --fh-gray-100: #e2ebe5;
-  --fh-gray-200: #d9e2db;
-  --fh-gray-300: #bccac0;
-  --fh-gray-400: #93a69a;
-  --fh-gray-500: #6b7c71;
-  --fh-gray-600: #56655c;
-  --fh-gray-700: #3a473f;
-  --fh-gray-800: #24342a;
-  --fh-gray-850: #17241c;
-  --fh-gray-900: #111b15;
-  --fh-gray-950: #0b130e;
-  --fh-gray-975: #13201a;
+  --fh-gray-25: oklch(97.7% 0.0034 var(--fh-hue));
+  --fh-gray-50: oklch(95.9% 0.0075 var(--fh-hue));
+  --fh-gray-100: oklch(93.2% 0.0125 var(--fh-hue));
+  --fh-gray-200: oklch(90.4% 0.0135 var(--fh-hue));
+  --fh-gray-300: oklch(82.5% 0.0206 var(--fh-hue));
+  --fh-gray-400: oklch(70.7% 0.0274 var(--fh-hue));
+  --fh-gray-500: oklch(56.9% 0.0261 var(--fh-hue));
+  --fh-gray-600: oklch(49.1% 0.0232 var(--fh-hue));
+  --fh-gray-700: oklch(38.4% 0.0215 var(--fh-hue));
+  --fh-gray-800: oklch(30.7% 0.0278 var(--fh-hue));
+  --fh-gray-850: oklch(24.5% 0.0236 var(--fh-hue));
+  --fh-gray-900: oklch(21.0% 0.0188 var(--fh-hue));
+  --fh-gray-950: oklch(17.7% 0.0160 var(--fh-hue));
+  --fh-gray-975: oklch(22.9% 0.0217 var(--fh-hue));
 
   /* ---- 2. Roles -------------------------------------------------------- */
 
@@ -72,7 +80,7 @@
   /* Accent: links, primary buttons, focus, selection */
   --fh-accent: light-dark(var(--fh-green-600), var(--fh-green-300));
   --fh-accent-hover: light-dark(var(--fh-green-700), var(--fh-green-200));
-  --fh-accent-soft: light-dark(var(--fh-green-50), rgb(127 184 148 / 0.12));
+  --fh-accent-soft: light-dark(var(--fh-green-50), oklch(73.3% 0.0793 var(--fh-hue) / 0.12));
   --fh-on-accent: light-dark(var(--fh-gray-0), var(--fh-gray-950));
   --fh-focus: var(--fh-accent);
 
@@ -89,9 +97,9 @@
   --fh-info-soft: light-dark(#e8f0f7, rgb(143 184 222 / 0.12));
 
   /* Elevation */
-  --fh-shadow-sm: 0 1px 2px light-dark(rgb(19 32 26 / 0.06), rgb(0 0 0 / 0.4));
-  --fh-shadow-md: 0 1px 2px light-dark(rgb(19 32 26 / 0.06), rgb(0 0 0 / 0.4)),
-    0 8px 24px -12px light-dark(rgb(19 32 26 / 0.18), rgb(0 0 0 / 0.6));
+  --fh-shadow-sm: 0 1px 2px light-dark(oklch(22.9% 0.0217 var(--fh-hue) / 0.06), rgb(0 0 0 / 0.4));
+  --fh-shadow-md: 0 1px 2px light-dark(oklch(22.9% 0.0217 var(--fh-hue) / 0.06), rgb(0 0 0 / 0.4)),
+    0 8px 24px -12px light-dark(oklch(22.9% 0.0217 var(--fh-hue) / 0.18), rgb(0 0 0 / 0.6));
 
   /* Type */
   --fh-font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;

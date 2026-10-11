@@ -172,7 +172,7 @@ imports no PyTorch, so it starts in a moment.
 ### Design
 
 Styles come from [`@cha7/feather-heavy-design-system`](https://github.com/cha7/feather-heavy-design-system):
-forest-green tokens, light and dark mode, and a few components. Its README
+forest-green tokens (one setting recolors them), light and dark mode, and a few components. Its README
 (`src/vendor/feather-heavy/README.md`) has the full token and class list.
 
 **It's vendored**, unlike the other cha7 apps: a copy lives in `src/vendor/feather-heavy/`
@@ -188,6 +188,11 @@ GitHub Packages always needs a token, and people downloading this app don't have
 - **Components are classes** on plain HTML: `fh-card`, `fh-button fh-button--primary`,
   `fh-alert fh-alert--danger`, `fh-label`, `fh-field` with `fh-input`/`fh-select`. Page
   layout goes in `src/app/page.module.css`.
+- **The app's color:** `FH_HUE` in `.env` (committed, like `mtab/web/`), 0–359 around the
+  color wheel: `156` forest (the default), `200` teal, `245` Puget Sound blue, `285` dusk,
+  `330` heather, `30` terracotta, `75` ochre. The accent and the tinted grays follow it in
+  both themes; the confidence colors don't. `next.config.mjs` reads it at build time and
+  `layout.js` sets it on `<html>`: `npm run build` and commit after changing it.
 - **Theme:** `src/app/layout.js` has `<ThemeScript />` in `<head>` and `<ThemeToggle />` in
   the masthead, with `<Mandolin />` (`src/app/Mandolin.jsx`, the same drawing as `icon.svg`) as
   the mark in place of the design system's Feather; the choice is kept in `localStorage`.
